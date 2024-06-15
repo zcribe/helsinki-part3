@@ -4,7 +4,8 @@ const app = express();
 
 
 app.use(express.json());
-app.use(morgan('tiny'))
+morgan.token('body', function (req, res) { return JSON.stringify(req.body) })
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'))
 
 let data = [
   {
@@ -43,10 +44,7 @@ app.post("/api/persons", (request, response) => {
   const id = Math.floor(Math.random() * 9000);
   const person = request.body;
 
-  if (
-    !Object.values(person).includes("name") ||
-    !Object.values(person).includes("number")
-  ) {
+  if (!"name" in person || !"number" in person) {
     response
       .status({ status: 400, statusText: "The name or number is missing" })
       .end();
