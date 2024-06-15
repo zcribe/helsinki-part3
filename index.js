@@ -29,7 +29,7 @@ app.get("/api/persons", (request, response) => {
 });
 
 app.get('/info', (request, response) => {
-    response.send('<h1>Hello World!</h1>')
+    response.send(`<p>Phonebook has info for ${data.length} people<br/>${new Date()}</p>`)
   })
 
 const PORT = 3001;
