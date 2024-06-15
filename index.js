@@ -24,13 +24,25 @@ const data = [
   },
 ];
 
+app.get("/api/persons/:id", (request, response) => {
+  const id = request.params.id;
+  const person = data.find((person) => person.id === parseInt(id));
+  if (person) {
+    response.json(person);
+  } else {
+    response.status(404).end();
+  }
+});
+
 app.get("/api/persons", (request, response) => {
   response.json(data);
 });
 
-app.get('/info', (request, response) => {
-    response.send(`<p>Phonebook has info for ${data.length} people<br/>${new Date()}</p>`)
-  })
+app.get("/info", (request, response) => {
+  response.send(
+    `<p>Phonebook has info for ${data.length} people<br/>${new Date()}</p>`
+  );
+});
 
 const PORT = 3001;
 app.listen(PORT, () => {
