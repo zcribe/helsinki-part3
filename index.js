@@ -44,6 +44,8 @@ app.get("/api/persons/:id", (request, response) => {
   }
 });
 
+app.use(express.static('dist'))
+
 app.post("/api/persons", (request, response) => {
   const id = Math.floor(Math.random() * 9000);
   const person = request.body;
