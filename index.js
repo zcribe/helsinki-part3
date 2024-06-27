@@ -5,7 +5,6 @@ const Person = require("./models/person");
 
 const app = express();
 
-
 app.use(express.static("dist"));
 app.use(express.json());
 app.use(cors());
@@ -77,9 +76,11 @@ app.delete("/api/persons/:id", (request, response) => {
 // Info
 
 app.get("/info", (request, response) => {
-  response.send(
-    `<p>Phonebook has info for ${data.length} people<br/>${new Date()}</p>`
-  );
+  Person.find({}).then((result) => {
+    response.send(
+      `<p>Phonebook has info for ${result.length} people<br/>${new Date()}</p>`
+    );
+  });
 });
 
 const errorHandler = (error, request, response, next) => {
